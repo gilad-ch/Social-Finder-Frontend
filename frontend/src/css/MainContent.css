@@ -1,0 +1,31 @@
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background-color: var(--background);
+}
+
+.main-content h2 {
+  color: var(--on-background);
+  margin-bottom: 1rem;
+}
+
+.in-working-message {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--surface);
+  border-radius: 8px;
+  margin-top: 2rem;
+  color: var(--on-surface);
+}
+
+.in-working-message h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .twitter-feed {
+    align-items: stretch;
+  }
+}

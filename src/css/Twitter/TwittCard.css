@@ -1,0 +1,247 @@
+.twitt-card {
+  font-family: Arial, sans-serif;
+  background-color: var(--surface);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.twitt-card.chained {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.twitt-card-content {
+  padding: 16px;
+}
+
+.retweet-indicator {
+  color: var(--on-surface);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.profile-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0;
+  color: var(--on-surface);
+}
+
+.handle {
+  color: var(--on-surface);
+  opacity: 0.7;
+  font-size: 14px;
+  margin: 0;
+}
+
+.verified-badge {
+  color: var(--primary);
+  margin-left: 4px;
+}
+
+.twitt-text {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  color: var(--on-surface);
+}
+
+.twitt-text-hebrew {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.twitt-text .highlight {
+  color: var(--primary);
+}
+
+.media-preview {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.timestamp {
+  color: var(--on-surface);
+  opacity: 0.7;
+  font-size: 14px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+.engagement-metrics {
+  display: flex;
+  justify-content: space-between;
+  color: var(--on-surface);
+  opacity: 0.7;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.metric {
+  display: flex;
+  align-items: center;
+}
+
+.metric-icon {
+  margin-right: 4px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 16px;
+}
+
+.action-button {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.approve {
+  background-color: #4caf50;
+  color: white;
+}
+
+.approve:hover {
+  background-color: #45a049;
+}
+
+.reject {
+  background-color: #f44336;
+  color: white;
+}
+
+.reject:hover {
+  background-color: #da190b;
+}
+
+.unknown {
+  background-color: #9e9e9e;
+  color: white;
+}
+
+.unknown:hover {
+  background-color: #757575;
+}
+
+.retweets {
+  padding-left: 16px;
+  border-left: 2px solid var(--primary);
+  margin-left: 8px;
+  margin-top: 8px;
+}
+
+.retweets .twitt-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+.modal {
+  display: flex;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.modal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.close {
+  color: #fff;
+  font-size: 35px;
+  font-weight: bold;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.twitt-chain {
+  background-color: var(--surface);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.chain-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px;
+  background-color: var(--surface);
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.chain-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chain-toggle svg {
+  margin-right: 8px;
+}
+
+.chained-tweets {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.twitt-chain:hover .chained-tweets {
+  overflow-y: auto;
+  max-height: 500px;
+  transition: max-height 0.5s ease-in;
+}

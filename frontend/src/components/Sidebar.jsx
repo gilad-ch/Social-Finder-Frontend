@@ -1,29 +1,45 @@
 import React from "react";
+import { useState } from "react";
+import { PlusCircle, CheckCircle, XCircle, HelpCircle } from "lucide-react";
 import "../css/Sidebar.css";
 
-function Sidebar({ isOpen, setIsOpen }) {
-  const statuses = ["New", "Approved", "Rejected", "Unknown"];
+function Sidebar({ currentStatus, setStatus }) {
+  const statuses = [
+    { name: "New", icon: PlusCircle, color: "#4CAF50" },
+    { name: "Approved", icon: CheckCircle, color: "#2196F3" },
+    { name: "Rejected", icon: XCircle, color: "#F44336" },
+    { name: "Unknown", icon: HelpCircle, color: "#FFC107" },
+  ];
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
-    <>
+    <div className="sidebar-section">
       <button className="sidebar-toggle" onClick={toggleSidebar}>
-        {isOpen ? "✕" : "☰"}
+        {isSidebarOpen ? "✕" : "☰"}
       </button>
-      <aside className={`sidebar ${isOpen ? "open" : ""}`}>
-        <section className="sidebar-section">
-          <h2>Status</h2>
-          <ul>
-            {statuses.map((status) => (
-              <li key={status}>
-                <a href="#">{status}</a>
-              </li>
-            ))}
-          </ul>
-        </section>
+      <aside className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+        <div className="sidebar-header">
+          <h2>Status Filter</h2>
+        </div>
+        <nav className="sidebar-nav">
+          {statuses.map((status) => (
+            <button
+              key={status.name}
+              className={`status-button ${
+                currentStatus === status.name ? "active" : ""
+              }`}
+              onClick={() => setStatus(status.name)}
+              style={{ "--status-color": status.color }}
+            >
+              <status.icon size={24} />
+              <span>{status.name}</span>
+            </button>
+          ))}
+        </nav>
       </aside>
-    </>
+    </div>
   );
 }
 

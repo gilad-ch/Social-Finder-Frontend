@@ -1,5 +1,5 @@
-export const get_twitts(){
-    // Generate sample tweets
+export function get_twitts(status) {
+  // Generate sample tweets
   const tweets = Array.from({ length: 20 }, (_, i) => {
     const isChained = i % 7 === 0;
     const isRetweet = i % 5 === 0 && !isChained;
@@ -9,7 +9,7 @@ export const get_twitts(){
       username: `User${id}`,
       hastag: `@user${id}`,
       profile_image: `https://picsum.photos/48?random=${id}`,
-      tweet_text: `This is sample twitt #${id}. It contains some text to demonstrate the layout.`,
+      tweet_text: `Status: ${status} This is sample twitt #${id}. It contains some text to demonstrate the layout.`,
       post_date: new Date(
         Date.now() - Math.floor(Math.random() * 10000000000)
       ).toISOString(),
@@ -38,5 +38,5 @@ export const get_twitts(){
       return createTweet(i + 1);
     }
   });
-
+  return tweets;
 }

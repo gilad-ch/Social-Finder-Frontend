@@ -1,13 +1,16 @@
+import { Link } from "react-router-dom";
+import React from "react";
+import { Twitter, Send, Instagram, ChevronDown, Ship } from "lucide-react";
 import { useState } from "react";
-import { Music2 } from "lucide-react";
 import "../css/Header.css";
 
 function Header({ selectedPlatform, setSelectedPlatform }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const platforms = [
-    { name: "Twitter", icon: "../assets/twitter_icon.svg" },
-    { name: "Telegram", icon: "../assets/telegram_icon.svg" },
+    { name: "Twitter", icon: Twitter },
+    { name: "Telegram", icon: Send },
+    { name: "Instagram", icon: Instagram },
   ];
 
   const toggleMenu = () => {
@@ -19,26 +22,37 @@ function Header({ selectedPlatform, setSelectedPlatform }) {
       <button className="menu-toggle" onClick={toggleMenu}>
         ☰
       </button>
-      <h1 className="app-title">Columbus</h1>
+      <div className="app-title">
+        <Ship size={24} className="app-icon" />
+        <span className="title-text">Columbus</span>
+      </div>
       <nav className={`nav-links ${isMenuOpen ? "open" : ""}`}>
-        <a href="#" className="nav-link">
+        <Link to="/admin" className="nav-link">
           Admin Panel
-        </a>
-        <a href="#" className="nav-link">
+        </Link>
+        <Link to="/" className="nav-link">
           Dashboard
-        </a>
+        </Link>
       </nav>
       <div className="platform-dropdown">
-        <button className="dropdown-button">{selectedPlatform}</button>
+        <button className="dropdown-button">
+          {React.createElement(
+            platforms.find((p) => p.name === selectedPlatform).icon,
+            { size: 18 }
+          )}
+          <span>{selectedPlatform}</span>
+          <ChevronDown size={18} />
+        </button>
         <div className="dropdown-content">
           {platforms.map((platform) => (
-            <a
+            <button
               key={platform.name}
-              href="#"
+              className="dropdown-item"
               onClick={() => setSelectedPlatform(platform.name)}
             >
-              {platform.logo} {platform.name}
-            </a>
+              {React.createElement(platform.icon, { size: 18 })}
+              <span>{platform.name}</span>
+            </button>
           ))}
         </div>
       </div>

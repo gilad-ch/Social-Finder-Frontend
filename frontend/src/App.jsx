@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
-import MainContent from "./components/MainContent";
+import DashBoard from "./pages/DashBoard";
+import AdminPanel from "./pages/AdminPanel";
 import "./css/App.css";
 
 function App() {
   const [selectedPlatform, setSelectedPlatform] = useState("Twitter");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="app">
@@ -15,10 +14,16 @@ function App() {
         selectedPlatform={selectedPlatform}
         setSelectedPlatform={setSelectedPlatform}
       />
-      <div className="content-wrapper">
-        <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
-        <MainContent selectedPlatform={selectedPlatform} />
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={<DashBoard selectedPlatform={selectedPlatform} />}
+        />
+        <Route
+          path="/admin"
+          element={<AdminPanel selectedPlatform={selectedPlatform} />}
+        />
+      </Routes>
     </div>
   );
 }

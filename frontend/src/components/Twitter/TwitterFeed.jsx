@@ -1,6 +1,6 @@
 import React from "react";
 import TweetCard from "./TwittCard";
-import "../css/TwitterFeed.css";
+import "../../css/Twitter/TwitterFeed.css";
 
 function TwitterFeed({ tweets }) {
   return (

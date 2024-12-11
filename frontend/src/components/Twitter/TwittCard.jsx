@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import "../css/TwittCard.css";
+import "../../css/Twitter/TwittCard.css";
 
 function TweetContent({ twitt, showActions, isChained = false }) {
   const [isModalOpen, setModalOpen] = useState(false);

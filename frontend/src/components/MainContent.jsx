@@ -1,51 +1,13 @@
 import React from "react";
-import TwitterFeed from "./TwitterFeed";
+import TwitterFeed from "./Twitter/TwitterFeed";
 import PlatformInProgress from "./PlatformInProgress";
+import { get_twitts } from "../services/api";
 import "../css/MainContent.css";
 
-function MainContent({ selectedPlatform }) {
-  // Generate sample tweets
-  const tweets = Array.from({ length: 20 }, (_, i) => {
-    const isChained = i % 7 === 0;
-    const isRetweet = i % 5 === 0 && !isChained;
-
-    const createTweet = (id) => ({
-      tweet_id: `${id}`,
-      username: `User${id}`,
-      hastag: `@user${id}`,
-      profile_image: `https://picsum.photos/48?random=${id}`,
-      tweet_text: `This is sample twitt #${id}. It contains some text to demonstrate the layout.`,
-      post_date: new Date(
-        Date.now() - Math.floor(Math.random() * 10000000000)
-      ).toISOString(),
-      media:
-        Math.random() > 0.7
-          ? `https://picsum.photos/500/300?random=${id}`
-          : null,
-    });
-
-    if (isChained) {
-      return [
-        createTweet(i + 1),
-        createTweet(i + 2),
-        {
-          ...createTweet(i + 3),
-          retweet: createTweet(`rt-${i + 3}`),
-        },
-        createTweet(i + 4),
-      ];
-    } else if (isRetweet) {
-      return {
-        ...createTweet(i + 1),
-        retweet: createTweet(`rt-${i + 1}`),
-      };
-    } else {
-      return createTweet(i + 1);
-    }
-  });
-
+function MainContent({ selectedPlatform, currentStatus }) {
   const renderContent = () => {
     if (selectedPlatform === "Twitter") {
+      const tweets = get_twitts(currentStatus);
       return <TwitterFeed tweets={tweets} />;
     } else {
       return <PlatformInProgress platform={selectedPlatform} />;

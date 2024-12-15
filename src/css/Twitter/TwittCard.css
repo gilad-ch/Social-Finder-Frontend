@@ -19,7 +19,7 @@
   padding: 16px;
 }
 
-.retweet-indicator {
+.retwitt-indicator {
   color: var(--on-surface);
   font-size: 14px;
   margin-bottom: 8px;
@@ -157,14 +157,14 @@
   background-color: #757575;
 }
 
-.retweets {
+.retwitts {
   padding-left: 16px;
   border-left: 2px solid var(--primary);
   margin-left: 8px;
   margin-top: 8px;
 }
 
-.retweets .twitt-card {
+.retwitts .twitt-card {
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: none;
 }
@@ -234,14 +234,13 @@
   margin-right: 8px;
 }
 
-.chained-tweets {
+.chained-twitts {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
 }
 
-.twitt-chain:hover .chained-tweets {
-  overflow-y: auto;
-  max-height: 500px;
+.twitt-chain:hover .chained-twitts {
+  max-height: 5000px;
   transition: max-height 0.5s ease-in;
 }

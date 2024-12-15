@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import "../../css/Twitter/TwittCard.css";
 
-function TweetContent({ twitt, showActions, isChained = false }) {
+function TwittContent({ twitt, showActions, isChained = false }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState("");
 
@@ -14,6 +14,10 @@ function TweetContent({ twitt, showActions, isChained = false }) {
   const closeModal = () => {
     setModalOpen(false);
     setModalImage("");
+  };
+
+  const updateTwittStatus = (selectedStatus) => {
+    alert(`updateded twitt stastus to ${selectedStatus}`);
   };
 
   return (
@@ -30,7 +34,7 @@ function TweetContent({ twitt, showActions, isChained = false }) {
             <p className="handle">{twitt.hastag}</p>
           </div>
         </div>
-        <p className="twitt-text">{twitt.tweet_text}</p>
+        <p className="twitt-text">{twitt.twitt_text}</p>
         {twitt.media && (
           <img
             className="media-preview"
@@ -40,10 +44,11 @@ function TweetContent({ twitt, showActions, isChained = false }) {
           />
         )}
         <p className="timestamp">{twitt.post_date}</p>
-        {twitt.retweet && (
-          <div className="retweets">
-            <TweetContent
-              twitt={twitt.retweet}
+        {twitt.retwitt && (
+          <div className="retwitts">
+            <TwittContent
+              key={twitt.retwitt.twitt_id}
+              twitt={twitt.retwitt}
               showActions={false}
               isChained={true}
             />
@@ -51,9 +56,24 @@ function TweetContent({ twitt, showActions, isChained = false }) {
         )}
         {showActions && (
           <div className="action-buttons">
-            <button className="action-button approve">Approve</button>
-            <button className="action-button reject">Reject</button>
-            <button className="action-button unknown">Unknown</button>
+            <button
+              className="action-button approve"
+              onClick={() => updateTwittStatus(1)}
+            >
+              Approve
+            </button>
+            <button
+              className="action-button reject"
+              onClick={() => updateTwittStatus(2)}
+            >
+              Reject
+            </button>
+            <button
+              className="action-button unknown"
+              onClick={() => updateTwittStatus(3)}
+            >
+              Unknown
+            </button>
           </div>
         )}
       </div>
@@ -75,7 +95,7 @@ function TweetContent({ twitt, showActions, isChained = false }) {
   );
 }
 
-function TweetCard({ twitt }) {
+function TwittCard({ twitt }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -83,21 +103,21 @@ function TweetCard({ twitt }) {
   };
 
   if (Array.isArray(twitt)) {
-    // This is a chained twitt
+    // This a chained twitt
     return (
       <div className="twitt-chain">
-        <TweetContent twitt={twitt[0]} showActions={true} />
+        <TwittContent twitt={twitt[0]} showActions={true} />
         <button className="chain-toggle" onClick={toggleExpand}>
           {isExpanded ? <ChevronUp /> : <ChevronDown />}
           {isExpanded ? "Hide" : "Show"} {twitt.length - 1} chained{" "}
-          {twitt.length - 1 === 1 ? "twitt" : "tweets"}
+          {twitt.length - 1 === 1 ? "twitt" : "twitts"}
         </button>
         {isExpanded && (
-          <div className="chained-tweets">
-            {twitt.slice(1).map((chainedTweet, index) => (
-              <TweetContent
-                key={chainedTweet.tweet_id}
-                twitt={chainedTweet}
+          <div className="chained-twitts">
+            {twitt.slice(1).map((chainedTwitt, index) => (
+              <TwittContent
+                key={chainedTwitt.twitt_id}
+                twitt={chainedTwitt}
                 showActions={false}
                 isChained={true}
               />
@@ -107,9 +127,8 @@ function TweetCard({ twitt }) {
       </div>
     );
   } else {
-    // This is a single twitt or a retweet
-    return <TweetContent twitt={twitt} showActions={true} />;
+    return <TwittContent twitt={twitt} showActions={true} />;
   }
 }
 
-export default TweetCard;
+export default TwittCard;

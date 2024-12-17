@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import React from "react";
 import { Twitter, Send, Instagram, ChevronDown, Ship } from "lucide-react";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import "../css/Header.css";
 
 function Header({ selectedPlatform, setSelectedPlatform }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   const platforms = [
     { name: "Twitter", icon: Twitter },
@@ -27,11 +28,19 @@ function Header({ selectedPlatform, setSelectedPlatform }) {
         <span className="title-text">Columbus</span>
       </div>
       <nav className={`nav-links ${isMenuOpen ? "open" : ""}`}>
-        <Link to="/admin" className="nav-link">
-          Admin Panel
-        </Link>
-        <Link to="/" className="nav-link">
+        <Link
+          to="/"
+          className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+        >
           Dashboard
+        </Link>
+        <Link
+          to="/admin"
+          className={`nav-link ${
+            location.pathname === "/admin" ? "active" : ""
+          }`}
+        >
+          Admin Panel
         </Link>
       </nav>
       <div className="platform-dropdown">

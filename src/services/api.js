@@ -6,16 +6,19 @@ export function fetchTwitts(status) {
 
     const createTwitt = (id) => ({
       twitt_id: `${id}`,
+      status: 0,
       username: `User${id}`,
       hastag: `@user${id}`,
       profile_image: `https://picsum.photos/48?random=${id}`,
-      twitt_text: `Status: ${status} This is sample twitt #${id}. It contains some text to demonstrate the layout.`,
+      twitt_text: `Status: ${status} This is sample twitt #${id}.`,
       post_date: new Date(
         Date.now() - Math.floor(Math.random() * 10000000000)
       ).toISOString(),
       media:
         Math.random() > 0.7
           ? `https://picsum.photos/500/300?random=${id}`
+          : Math.random() > 0.2
+          ? `https://video.twimg.com/amplify_video/1868153605234077696/vid/avc1/1280x720/Au6vN9i2rMrEnD85.mp4?tag=16`
           : null,
     });
 

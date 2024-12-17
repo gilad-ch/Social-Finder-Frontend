@@ -3,8 +3,8 @@
   background-color: var(--surface);
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  width: 100%;
+  width: 468px;
+  max-width: 100%;
   overflow: hidden;
   margin-bottom: 16px;
 }
@@ -140,12 +140,12 @@
 }
 
 .reject {
-  background-color: #f44336;
+  background-color: var(--primary);
   color: white;
 }
 
 .reject:hover {
-  background-color: #da190b;
+  background-color: var(--primary-dark);
 }
 
 .unknown {
@@ -235,12 +235,6 @@
 }
 
 .chained-twitts {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-}
-
-.twitt-chain:hover .chained-twitts {
   max-height: 5000px;
-  transition: max-height 0.5s ease-in;
+  overflow: hidden;
 }

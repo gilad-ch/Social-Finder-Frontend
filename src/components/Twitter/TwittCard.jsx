@@ -2,7 +2,12 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import "../../css/Twitter/TwittCard.css";
 
-function TwittContent({ twitt, showActions, isChained = false }) {
+function TwittContent({
+  twitt,
+  showActions,
+  isChained = false,
+  updateTwittStatus,
+}) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState("");
 
@@ -16,8 +21,13 @@ function TwittContent({ twitt, showActions, isChained = false }) {
     setModalImage("");
   };
 
-  const updateTwittStatus = (selectedStatus) => {
-    alert(`updateded twitt stastus to ${selectedStatus}`);
+  const handleUpdateTwittStatus = (selectedStatus) => {
+    alert(`updateded twitt stastus for ${twitt.twitt_id} to ${selectedStatus}`);
+    updateTwittStatus();
+  };
+
+  const isVideo = (media) => {
+    return media.includes(".mp4");
   };
 
   return (
@@ -35,14 +45,22 @@ function TwittContent({ twitt, showActions, isChained = false }) {
           </div>
         </div>
         <p className="twitt-text">{twitt.twitt_text}</p>
-        {twitt.media && (
-          <img
-            className="media-preview"
-            src={twitt.media}
-            alt="twitt media"
-            onClick={() => openModal(twitt.media)}
-          />
-        )}
+        <div className="twitt-media">
+          {twitt.media &&
+            (isVideo(twitt.media) ? (
+              <video width="100%" controls className="media-preview">
+                <source src={twitt.media} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <img
+                className="media-preview"
+                src={twitt.media}
+                alt="twitt media"
+                onClick={() => openModal(twitt.media)}
+              />
+            ))}
+        </div>
         <p className="timestamp">{twitt.post_date}</p>
         {twitt.retwitt && (
           <div className="retwitts">
@@ -58,21 +76,15 @@ function TwittContent({ twitt, showActions, isChained = false }) {
           <div className="action-buttons">
             <button
               className="action-button approve"
-              onClick={() => updateTwittStatus(1)}
+              onClick={() => handleUpdateTwittStatus(1)}
             >
               Approve
             </button>
             <button
               className="action-button reject"
-              onClick={() => updateTwittStatus(2)}
+              onClick={() => handleUpdateTwittStatus(2)}
             >
-              Reject
-            </button>
-            <button
-              className="action-button unknown"
-              onClick={() => updateTwittStatus(3)}
-            >
-              Unknown
+              Save
             </button>
           </div>
         )}
@@ -95,7 +107,7 @@ function TwittContent({ twitt, showActions, isChained = false }) {
   );
 }
 
-function TwittCard({ twitt }) {
+function TwittCard({ twitt, updateTwittStatus }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -106,7 +118,11 @@ function TwittCard({ twitt }) {
     // This a chained twitt
     return (
       <div className="twitt-chain">
-        <TwittContent twitt={twitt[0]} showActions={true} />
+        <TwittContent
+          twitt={twitt[0]}
+          showActions={true}
+          updateTwittStatus={updateTwittStatus}
+        />
         <button className="chain-toggle" onClick={toggleExpand}>
           {isExpanded ? <ChevronUp /> : <ChevronDown />}
           {isExpanded ? "Hide" : "Show"} {twitt.length - 1} chained{" "}
@@ -120,6 +136,7 @@ function TwittCard({ twitt }) {
                 twitt={chainedTwitt}
                 showActions={false}
                 isChained={true}
+                updateTwittStatus={updateTwittStatus}
               />
             ))}
           </div>
@@ -127,7 +144,14 @@ function TwittCard({ twitt }) {
       </div>
     );
   } else {
-    return <TwittContent twitt={twitt} showActions={true} />;
+    //normal twitt
+    return (
+      <TwittContent
+        twitt={twitt}
+        showActions={true}
+        updateTwittStatus={updateTwittStatus}
+      />
+    );
   }
 }
 

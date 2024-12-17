@@ -6,9 +6,7 @@ import "../css/Sidebar.css";
 function Sidebar({ currentStatus, setStatus }) {
   const statuses = [
     { name: "New", icon: PlusCircle, color: "#2196F3", statusCode: 0 },
-    { name: "Approved", icon: CheckCircle, color: "#4CAF50", statusCode: 1 },
-    { name: "Rejected", icon: XCircle, color: "#F44336", statusCode: 2 },
-    { name: "Unknown", icon: HelpCircle, color: "#FFC107", statusCode: 3 },
+    { name: "Watchlist", icon: CheckCircle, color: "#4CAF50", statusCode: 1 },
   ];
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

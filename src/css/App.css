@@ -30,6 +30,7 @@ body {
 }
 
 .app {
+  overflow: hidden; /* Prevent scrolling on the entire page */
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -38,7 +39,7 @@ body {
 .content-wrapper {
   display: flex;
   flex: 1;
-  overflow: hidden;
+  overflow: hidden; /* Prevent the wrapper from scrolling */
 }
 
 @media (max-width: 768px) {

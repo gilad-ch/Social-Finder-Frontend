@@ -12,7 +12,11 @@ function MainContent({ selectedPlatform, currentStatus }) {
     }
   };
 
-  return <main className="main-content">{renderContent()}</main>;
+  return (
+    <main className="main-content" id="main-content">
+      {renderContent()}
+    </main>
+  );
 }
 
 export default MainContent;

@@ -1,8 +1,18 @@
 .main-content {
   flex: 1;
-  padding: 1rem;
+  padding-top: 1rem;
   overflow-y: auto;
   background-color: var(--background);
+}
+
+.spinner-container {
+  height: 50px; /* Fixed height for consistency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent; /* Ensure it doesn’t cause color artifacts */
+  margin: 0; /* Remove unnecessary margins */
+  padding: 0; /* Remove unnecessary padding */
 }
 
 .main-content h2 {

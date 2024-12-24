@@ -7,6 +7,7 @@ function TwittContent({
   showActions,
   isChained = false,
   updateTwittStatus,
+  deleteTwitt
 }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState("");
@@ -25,6 +26,11 @@ function TwittContent({
     alert(`updateded twitt stastus for ${twitt.twitt_id} to ${selectedStatus}`);
     updateTwittStatus();
   };
+
+  const handleAprovedTwitt = () =>
+  {
+    deleteTwitt(twitt.twitt_id);    
+  }
 
   const isVideo = (media) => {
     return media.includes(".mp4");
@@ -76,7 +82,7 @@ function TwittContent({
           <div className="action-buttons">
             <button
               className="action-button approve"
-              onClick={() => handleUpdateTwittStatus(1)}
+              onClick={() => handleAprovedTwitt()}
             >
               Approve
             </button>
@@ -107,36 +113,38 @@ function TwittContent({
   );
 }
 
-function TwittCard({ twitt, updateTwittStatus }) {
+function TwittCard({ twitt, updateTwittStatus, deleteTwitt }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
-  if (Array.isArray(twitt)) {
+  if (twitt.chained_twitts) {
     // This a chained twitt
     return (
       <div className="twitt-chain">
         <TwittContent
-          twitt={twitt[0]}
+          twitt={twitt}
           showActions={true}
           updateTwittStatus={updateTwittStatus}
+          deleteTwitt={deleteTwitt}
         />
         <button className="chain-toggle" onClick={toggleExpand}>
           {isExpanded ? <ChevronUp /> : <ChevronDown />}
-          {isExpanded ? "Hide" : "Show"} {twitt.length - 1} chained{" "}
-          {twitt.length - 1 === 1 ? "twitt" : "twitts"}
+          {isExpanded ? "Hide" : "Show"} {twitt.chained_twitts.length} chained{" "}
+          {twitt.chained_twitts.length === 1 ? "twitt" : "twitts"}
         </button>
         {isExpanded && (
           <div className="chained-twitts">
-            {twitt.slice(1).map((chainedTwitt, index) => (
+            {twitt.chained_twitts.map((chainedTwitt, index) => (
               <TwittContent
                 key={chainedTwitt.twitt_id}
                 twitt={chainedTwitt}
                 showActions={false}
                 isChained={true}
                 updateTwittStatus={updateTwittStatus}
+                deleteTwitt={deleteTwitt}
               />
             ))}
           </div>
@@ -150,6 +158,7 @@ function TwittCard({ twitt, updateTwittStatus }) {
         twitt={twitt}
         showActions={true}
         updateTwittStatus={updateTwittStatus}
+        deleteTwitt={deleteTwitt}
       />
     );
   }

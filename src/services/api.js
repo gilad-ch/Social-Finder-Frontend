@@ -1,45 +1,60 @@
 export function fetchTwitts(status) {
   // Generate sample twitts
   const twitts = Array.from({ length: 20 }, (_, i) => {
-    const isChained = i % 7 === 0;
-    const isRetwitt = i % 5 === 0 && !isChained;
+    const isChained = i % 7 === 0; // Determine if the tweet should have chained tweets
+    const isRetwitt = i % 5 === 0 && !isChained; // Determine if the tweet should be a retweet
 
-    const createTwitt = (id) => ({
-      twitt_id: `${id}`,
-      status: 0,
-      username: `User${id}`,
-      hastag: `@user${id}`,
-      profile_image: `https://picsum.photos/48?random=${id}`,
-      twitt_text: `Status: ${status} This is sample twitt #${id}.`,
-      post_date: new Date(
-        Date.now() - Math.floor(Math.random() * 10000000000)
-      ).toISOString(),
-      media:
-        Math.random() > 0.7
-          ? `https://picsum.photos/500/300?random=${id}`
-          : Math.random() > 0.2
-          ? `https://video.twimg.com/amplify_video/1868153605234077696/vid/avc1/1280x720/Au6vN9i2rMrEnD85.mp4?tag=16`
-          : null,
-    });
+    // Function to generate a random 9-digit number for twitt_id
+    const generateRandomId = () => Math.floor(100000000 + Math.random() * 900000000);
 
-    if (isChained) {
-      return [
-        createTwitt(i + 1),
-        createTwitt(i + 2),
-        {
-          ...createTwitt(i + 3),
-          retwitt: createTwitt(`rt-${i + 3}`),
-        },
-        createTwitt(i + 4),
-      ];
-    } else if (isRetwitt) {
+    // Function to create a single tweet
+    const createTwitt = () => {
+      const twitt_id = generateRandomId(); // Generate random 9-digit twitt_id
       return {
-        ...createTwitt(i + 1),
-        retwitt: createTwitt(`rt-${i + 1}`),
+        twitt_id: `${twitt_id}`, // Convert to string
+        status: 0,
+        username: `User${twitt_id}`,
+        hastag: `@user${twitt_id}`,
+        profile_image: `https://picsum.photos/48?random=${twitt_id}`,
+        twitt_text: `Status: ${status} This is sample twitt #${twitt_id}.`,
+        post_date: new Date(
+          Date.now() - Math.floor(Math.random() * 10000000000)
+        ).toISOString(),
+        media:
+          Math.random() > 0.7
+            ? `https://picsum.photos/500/300?random=${twitt_id}`
+            : Math.random() > 0.2
+            ? `https://video.twimg.com/amplify_video/1868153605234077696/vid/avc1/1280x720/Au6vN9i2rMrEnD85.mp4?tag=16`
+            : null,
+      };
+    };
+
+    // If it's a chained tweet, add a `chained_twitts` property with an array of tweets
+    if (isChained) {
+      const mainTwitt = createTwitt(); // Main tweet in the chain
+      return {
+        ...mainTwitt,
+        chained_twitts: [
+          createTwitt(),
+          createTwitt(),
+          {
+            ...createTwitt(),
+            retwitt: createTwitt(), // If it's a retweet, include it here
+          },
+          createTwitt(),
+        ], // Add chained tweets
+      };
+    } else if (isRetwitt) {
+      // If it's a retweet, simply create a retweet structure
+      return {
+        ...createTwitt(),
+        retwitt: createTwitt(), // Add retwitt property
       };
     } else {
-      return createTwitt(i + 1);
+      // Normal tweet without any chaining or retweet
+      return createTwitt();
     }
   });
+
   return twitts;
 }

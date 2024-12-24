@@ -10,6 +10,7 @@ function TwitterFeed({ currentStatus }) {
   const [twitts, setTweets] = useState([]);
   const [hasMore, setHasMore] = useState(true);
 
+  // refetch tweets if current status is changed
   useEffect(() => {
     setTweets(fetchTwitts(currentStatus)); // Replace this with API call
   }, [currentStatus]);
@@ -19,6 +20,12 @@ function TwitterFeed({ currentStatus }) {
     const updatedTwitts = fetchTwitts(currentStatus); // Replace this with API call
     setTweets(updatedTwitts);
   };
+
+    // Function to handle the deletion of a tweet
+    const handleDeleteTwitt = (twittId) => {
+      setTweets(prevTwitts => prevTwitts.filter(twitt => twitt.twitt_id !== twittId)); 
+      // TODO add API call to delete the tweet from DB
+    };
 
   const fetchMoreTwitts = () => {
     setTimeout(() => {
@@ -40,7 +47,7 @@ function TwitterFeed({ currentStatus }) {
         <div className="spinner-container">
           <ClipLoader
             color="#3b82f6"
-            loading={true} // Keep it true for infinite scrolling
+            loading={true} 
             size={30}
           />
         </div>
@@ -49,9 +56,10 @@ function TwitterFeed({ currentStatus }) {
       <div className="twitter-feed">
         {twitts.map((twitt, index) => (
           <TwittCard
-            key={Array.isArray(twitt) ? twitt[0].twitt_id : twitt.twitt_id}
+            key={twitt.twitt_id}
             twitt={twitt}
             updateTwittStatus={handleUpdateTwittStatus}
+            deleteTwitt={handleDeleteTwitt}
           />
         ))}
       </div>

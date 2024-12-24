@@ -1,6 +1,6 @@
 .main-content {
   flex: 1;
-  padding-top: 1rem;
+  padding: 1rem;
   overflow-y: auto;
   background-color: var(--background);
 }
@@ -32,10 +32,4 @@
 .in-working-message h3 {
   color: var(--primary);
   margin-bottom: 1rem;
-}
-
-@media (max-width: 768px) {
-  .twitter-feed {
-    align-items: stretch;
-  }
 }

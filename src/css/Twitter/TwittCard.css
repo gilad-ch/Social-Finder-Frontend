@@ -1,4 +1,5 @@
 .twitt-card {
+  position: relative;
   font-family: Arial, sans-serif;
   background-color: var(--surface);
   border-radius: 12px;
@@ -17,6 +18,11 @@
 
 .twitt-card-content {
   padding: 16px;
+}
+
+.twitt-card-content:hover {
+  cursor: pointer;
+  background-color: #2b2a2a;
 }
 
 .retwitt-indicator {
@@ -139,13 +145,88 @@
   background-color: #45a049;
 }
 
-.reject {
-  background-color: #f44336;
+.save {
+  background-color: #ff5733;
   color: white;
 }
 
-.reject:hover {
-  background-color: #da190b;
+.save:hover {
+  background-color: #c04c32;
+}
+
+.delete-button {
+  margin-left: auto;
+  background: none;
+  border: 1px solid var(--error);
+  color: var(--error);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.delete-button:hover {
+  background-color: var(--error);
+  color: var(--on-primary);
+}
+
+.delete-confirm-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-confirm-popup {
+  background-color: var(--surface);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.delete-confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.delete-confirm-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.delete-confirm-actions button:first-child {
+  background-color: var(--error);
+  color: var(--on-primary);
+}
+
+.delete-confirm-actions button:first-child:hover {
+  background-color: var(--error-dark);
+}
+
+.delete-confirm-actions button:last-child {
+  background-color: var(--gray-200);
+  color: var(--on-surface);
+}
+
+.delete-confirm-actions button:last-child:hover {
+  background-color: var(--gray-300);
 }
 
 .unknown {
@@ -182,7 +263,7 @@
   align-items: center;
 }
 
-.modal-content {
+.modal-content-box {
   max-width: 90%;
   max-height: 90%;
 }
@@ -235,12 +316,6 @@
 }
 
 .chained-twitts {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-}
-
-.twitt-chain:hover .chained-twitts {
   max-height: 5000px;
-  transition: max-height 0.5s ease-in;
+  overflow: hidden;
 }
